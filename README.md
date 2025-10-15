@@ -1,8 +1,8 @@
-# 🏃 Calculadora de Pace do Corredor
+#  Calculadora de Pace do Corredor
 
 Uma ferramenta simples e visualmente agradável para calcular o ritmo médio (pace) de qualquer corrida. O projeto foi desenvolvido com foco na usabilidade e inclui um design jovial de verão, além da funcionalidade de alternância entre tema claro e escuro.
 
-## ✨ Minha Motivação como Corredora
+##  Minha Motivação como Corredora
 
 Como corredora amadora, sei a importância de acompanhar o ritmo (pace) para planejar treinos e alcançar metas. Muitas vezes, precisamos fazer um cálculo rápido no celular ou repassar essa métrica para amigos que estão começando.
 
