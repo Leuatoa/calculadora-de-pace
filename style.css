@@ -1,0 +1,199 @@
+
+:root {
+   
+    --bg-color-light: #fefefe;
+    --bg-color-gradient-start: #ffecd2; 
+    --bg-color-gradient-end: #fcb69f;   
+    --container-bg: var(--bg-color-light);
+
+    
+    --primary-color: #ff9a8d; 
+    --secondary-color: #fd7e14; 
+    --highlight-color: #e30737; 
+    --error-color: #dc3545; 
+
+ 
+    --text-color: #4a4a4a;
+    --input-border: #ccc;
+    --input-bg: #fff;
+
+   
+    --shadow-color: rgba(0,0,0,0.15);
+    --button-shadow-color: rgba(253, 126, 20, 0.3);
+}
+
+[data-theme="dark"] {
+   
+    --bg-color-gradient-start: #1c2738; 
+    --bg-color-gradient-end: #0c1521;   
+    --container-bg: #2d3b53;
+
+   
+    --primary-color: #ffc2b3; 
+    --secondary-color: #ffb86c; 
+    --highlight-color: #ff6060; 
+    --error-color: #ff8888; 
+
+  
+    --text-color: #e0e0e0;
+    --input-border: #444;
+    --input-bg: #3c4c6a;
+    
+    
+    --shadow-color: rgba(0,0,0,0.4);
+    --button-shadow-color: rgba(255, 184, 108, 0.3);
+}
+
+
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, var(--bg-color-gradient-start) 0%, var(--bg-color-gradient-end) 100%);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+.container {
+    max-width: 420px;
+    width: 90%;
+    background: var(--container-bg);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px var(--shadow-color);
+    text-align: left;
+    transition: background 0.3s, box-shadow 0.3s;
+    position: relative; 
+    padding-top: 60px; 
+}
+h1 {
+    text-align: center;
+    color: var(--highlight-color);
+    font-family: 'Pacifico', cursive;
+    font-size: 2.5em;
+    margin-bottom: 25px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    transition: color 0.3s;
+    margin-top: 0; 
+}
+
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 700;
+    color: var(--secondary-color);
+    transition: color 0.3s;
+}
+
+input[type="number"] {
+    width: calc(100% - 22px);
+    padding: 12px;
+    margin: 0; 
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
+}
+input[type="number"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-color), 0.2);
+    outline: none;
+}
+
+
+.time-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+    align-items: flex-end; 
+}
+
+
+.time-group > div {
+    flex-grow: 1;
+    text-align: center;
+}
+
+
+.time-group label {
+    display: block; 
+    font-weight: 400; 
+    font-size: 0.9em;
+    color: var(--text-color); 
+    margin: 0 0 5px 0; 
+    line-height: 1.2;
+    margin-top: 5px; 
+}
+
+
+
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 30px;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px var(--button-shadow-color);
+}
+button:hover {
+    background-color: var(--highlight-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(var(--highlight-color), 0.4);
+}
+
+
+.result {
+    margin-top: 30px;
+    padding: 20px;
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--text-color);
+    background-color: var(--container-bg); 
+    display: none;
+    transition: all 0.5s;
+}
+
+
+.theme-toggle-container {
+    position: absolute;
+    top: 15px; 
+    right: 15px; 
+}
+#themeToggle {
+    width: 40px; 
+    height: 40px;
+    padding: 0; 
+    margin-top: 0;
+    background-color: var(--primary-color);
+    box-shadow: none;
+    font-size: 1.2em; 
+    border-radius: 50%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white; 
+    cursor: pointer;
+}
+#themeToggle:hover {
+    background-color: var(--highlight-color);
+    transform: none;
+    box-shadow: none;
+}

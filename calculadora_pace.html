@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Pace do Corredor</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <div class="theme-toggle-container">
+        <button id="themeToggle" onclick="toggleTheme()"></button>
+    </div>
+
+    <h1>Calculadora de Pace</h1>
+    
+    <label for="distancia">Distância Percorrida (km):</label>
+    <input type="number" id="distancia" value="" min="0.1" step="0.1">
+
+    <label>Tempo Total:</label>
+    
+    <div class="time-group">
+        <div>
+            <label for="horas">Horas (h):</label>
+            <input type="number" id="horas" value="0" min="0">
+        </div>
+        <div>
+            <label for="minutos">Minutos (min):</label>
+            <input type="number" id="minutos" value="30" min="0" max="59">
+        </div>
+        <div>
+            <label for="segundos">Segundos (s):</label>
+            <input type="number" id="segundos" value="0" min="0" max="59">
+        </div>
+    </div>
+
+    <button onclick="calcularPace()">Calcular Pace</button>
+
+    <div id="resultado" class="result"></div>
+</div>
+
+<script>
+    
+    function toggleTheme() {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        updateToggleButton(newTheme);
+    }
+
+    
+    function updateToggleButton(theme) {
+        const button = document.getElementById('themeToggle');
+        if (button) {
+            button.innerHTML = theme === 'light' ? '🌙' : '☀️';
+            button.setAttribute('data-icon-only', 'true');
+        }
+    }
+
+    
+    function loadTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        let initialTheme = 'light';
+        if (savedTheme) {
+            initialTheme = savedTheme;
+        } else if (prefersDark) {
+            initialTheme = 'dark';
+        }
+        
+        document.documentElement.setAttribute('data-theme', initialTheme);
+        updateToggleButton(initialTheme);
+    }
+
+    
+    loadTheme();
+
+    
+    function calcularPace() {
+        const dist = parseFloat(document.getElementById('distancia').value);
+        const h = parseInt(document.getElementById('horas').value || 0);
+        const m = parseInt(document.getElementById('minutos').value || 0);
+        const s = parseInt(document.getElementById('segundos').value || 0);
+        const resultadoDiv = document.getElementById('resultado');
+
+        const getCssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+        if (isNaN(dist) || dist <= 0 || (h === 0 && m === 0 && s === 0)) {
+            resultadoDiv.style.display = 'block';
+            resultadoDiv.textContent = 'Por favor, insira valores válidos de distância e tempo.';
+            resultadoDiv.style.borderColor = getCssVar('--error-color'); 
+            resultadoDiv.style.color = getCssVar('--error-color'); 
+            return;
+        }
+        
+        resultadoDiv.style.borderColor = getCssVar('--primary-color'); 
+        resultadoDiv.style.color = getCssVar('--text-color'); 
+
+        const tempoTotalSegundos = (h * 3600) + (m * 60) + s;
+        const paceSegundosPorKm = tempoTotalSegundos / dist;
+        const paceMinutos = Math.floor(paceSegundosPorKm / 60);
+        let paceSegundos = Math.round(paceSegundosPorKm % 60);
+
+        if (paceSegundos === 60) {
+            paceSegundos = 0;
+            paceMinutos++;
+        }
+        
+        const segundosFormatados = String(paceSegundos).padStart(2, '0');
+        const paceFormatado = `${paceMinutos}:${segundosFormatados} min/km`;
+        
+        const tempoTotalHoras = tempoTotalSegundos / 3600;
+        const velocidadeMedia = dist / tempoTotalHoras;
+        const velocidadeFormatada = velocidadeMedia.toFixed(2);
+
+        const highlightColor = getCssVar('--highlight-color');
+
+        resultadoDiv.innerHTML = `
+            Seu Pace Médio é:<br>
+            <span style="color: ${highlightColor}; font-size: 1.5em;">${paceFormatado}</span><br>
+            (Velocidade Média: ${velocidadeFormatada} km/h)
+        `;
+        resultadoDiv.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
